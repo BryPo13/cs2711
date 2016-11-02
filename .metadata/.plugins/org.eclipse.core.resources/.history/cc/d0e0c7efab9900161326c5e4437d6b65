@@ -1,0 +1,14 @@
+package Position;
+
+public interface Position<E> {
+	/*
+	 * Returns the element stored at this position
+	 * 
+	 * @returns the stored element
+	 * @throws llegalStateException if position is no longer valid
+	 * 
+	 */
+	
+	E getElement() throws IllegalStateException;
+
+}

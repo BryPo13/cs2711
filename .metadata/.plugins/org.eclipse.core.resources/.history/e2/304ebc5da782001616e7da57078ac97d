@@ -1,0 +1,17 @@
+
+public class Test2 {
+	public static void main(String args[]){
+		LeakyStack <Integer> stack = new LeakyStack<Integer>();
+		for(int i = 0; i <= 15; i++){
+			stack.push(i);
+		}
+		
+		for(int i = 0; i < LeakyStack.MAX; i++){
+			//System.out.println(stack.size());
+			System.out.println(stack.pop());
+		}
+	
+	}
+
+	
+}

@@ -1,0 +1,127 @@
+import java.util.Stack;
+
+public class DisplayTree {
+	
+	static class Node<E>{
+		
+		private E element; 
+		private Node<E> parent;
+		private Node<E> leftChild;
+		private Node<E> rightChild;
+		
+		public Node(E e, Node<E> p,Node<E> l,Node<E> r){
+			element = e;
+			parent = p;
+			leftChild = l;
+			rightChild = r;
+		}
+	
+		public E getElement(){
+			return element;
+		}
+		
+		public Node<E> getLeftChild(){
+			return leftChild;
+		}
+		
+		public Node<E> getRightChild(){
+			return rightChild;
+		}
+		
+		public Node<E> getParent(){
+			return parent;	
+		}
+		
+		public void setElement (E e){
+			element = e;
+		}
+		public void setLeftChild(Node<E> l){
+			leftChild = l;
+		}
+		public void setRightChild(Node<E> r){
+			rightChild = r;
+		}
+		public void setParent (Node<E> p){
+			parent = p;
+		}
+	}
+	
+	
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void main(String[] args){
+		String expression = "((1+2)+(3*4)-(5+6)+(7*8))";
+		Stack<Node> opStack = new Stack<Node>();
+		Stack<Node> numStack = new Stack<Node>();
+		Node<Character> node = null;
+		
+		
+        int x = 0;
+        while (x < expression.length()) {
+        	char y = expression.charAt(x);
+        	if(y == '(' ){
+        		x++;
+        	}
+        	else if(y == '+' || y == '-' || y == '*' || y == '/'){
+        		node = new Node<Character>(y, null, null,null);
+        		opStack.push(node);
+        		x++;
+        	}
+        	else if( y == ')'){
+        		if(!opStack.isEmpty()){
+        		opStack.peek().setRightChild(numStack.pop());
+        		opStack.peek().setLeftChild(numStack.pop());
+        		numStack.push(opStack.pop());
+        		}
+        		x++;
+        	}
+        	else{ node = new Node<Character>(y, null, null,null);
+        		 numStack.push(node);
+        		 x++;
+        	}
+        		
+        }
+        System.out.print("Preorder Traversal  ");
+        printPreOrder(numStack.peek());
+        
+        System.out.println();
+        System.out.println();
+        System.out.print("Inorder Traversal  ");
+        printInOrder(numStack.peek());
+        
+        System.out.println();
+        System.out.println();
+        System.out.print("Postorder Traversal  ");
+        printPostOrder(numStack.peek());
+        
+        
+    }
+
+
+
+	private static void printPreOrder(Node n) {
+		if( n == null){return;}
+		System.out.print(n.element+" , ");
+		printPreOrder(n.leftChild);
+		printPreOrder(n.rightChild);
+		
+	}
+	private static void printInOrder(Node n) {
+		if( n == null){return;}
+		printInOrder(n.leftChild);
+		System.out.print(n.element+" , ");
+		printInOrder(n.rightChild);
+		
+	}
+	private static void printPostOrder(Node n) {
+		if( n == null){return;}
+		printPostOrder(n.leftChild);
+		printPostOrder(n.rightChild);
+		System.out.print(n.element+" , ");
+		
+	}
+				
+}
+	
+
+
